@@ -16,18 +16,18 @@ RUN service mysql start && \
 # Télécharger et configurer WordPress
 RUN wget https://wordpress.org/latest.zip && \
     unzip latest.zip && \
-    mv wordpress /var/www/html/ && \
-    chown -R www-data:www-data /var/www/html/wordpress
+    mv wordpress /var/www/ && \
+    chown -R www-data:www-data /var/www/wordpress
 
 # Télécharger et configurer phpMyAdmin
 RUN wget https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.zip && \
     unzip phpMyAdmin-latest-all-languages.zip && \
-    mv phpMyAdmin-*-all-languages /var/www/html/phpmyadmin && \
-    chown -R www-data:www-data /var/www/html/phpmyadmin
+    mv phpMyAdmin-*-all-languages /var/www/phpmyadmin && \
+    chown -R www-data:www-data /var/www/phpmyadmin
 
 # Copier le fichier de configuration Nginx
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY index.php /var/www/html/index.php
+COPY index.php /var/www//index.php
 
 # Générer un certificat auto-signé pour SSL
 RUN mkdir /etc/nginx/ssl && \
@@ -37,7 +37,7 @@ RUN mkdir /etc/nginx/ssl && \
     -subj "/C=FR/ST=France/L=Paris/O=MonEntreprise/OU=IT/CN=localhost"
 
 # Déclarer les volumes pour persister les données de WordPress et MySQL
-VOLUME /var/www/html/wordpress
+VOLUME /var/www/wordpress
 VOLUME /var/lib/mysql
 
 # Exposer les ports HTTP et HTTPS
