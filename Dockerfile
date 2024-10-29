@@ -27,7 +27,7 @@ RUN wget https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.zi
 
 # Copier le fichier de configuration Nginx
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY index.php /var/www//index.php
+COPY index.php /var/www/index.php
 
 # Générer un certificat auto-signé pour SSL
 RUN mkdir /etc/nginx/ssl && \
